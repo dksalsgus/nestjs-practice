@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Task } from 'src/tasks/task.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -10,4 +11,8 @@ export class User {
 
   @Column()
   password: string;
+
+  // eager : true => User 조회할때마다 Task 자동으로 같이 select
+  @OneToMany((_type) => Task, (task) => task.user, { eager: true })
+  tasks: Task[];
 }
